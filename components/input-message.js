@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const InputMessage = () => {
   return (
     <div className="self-stretch  rounded-xxs bg-seagreen-100   flex flex-row p-[0.94rem] items-center justify-start gap-[0.63rem]">
@@ -7,23 +9,23 @@ const InputMessage = () => {
         placeholder="Your Message"
       />
       <div className="  flex flex-row items-center justify-center gap-[0.63rem]">
-        <img
+        <Image width={20} height={20}
           className="relative w-[1.25rem] h-[1.25rem] shrink-0  "
           alt=""
           loading="lazy"
-          src="../frame12.svg"
+          src="/frame12.svg"
         />
-        <img
+        <Image width={20} height={20}
           className="relative w-[1.25rem] h-[1.25rem] shrink-0  "
           alt=""
           loading="lazy"
-          src="../frame13.svg"
+          src="/frame13.svg"
         />
-        <img
+        <Image width={24} height={24}
           className="relative w-[1.5rem] h-[1.5rem] shrink-0  "
           alt=""
           loading="lazy"
-          src="../frame14.svg"
+          src="/frame14.svg"
         />
       </div>
     </div>
