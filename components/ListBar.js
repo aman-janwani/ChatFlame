@@ -1,13 +1,36 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 import AddFriend from "./AddFriend";
 import PortalPopup from "./portal-popup";
 import FriendsList from "./friends-list";
 import Image from "next/image";
+import { db, auth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+
 
 const ListBar = () => {
-  const router = useRouter();
   const [isFrameContainer3Open, setFrameContainer3Open] = useState(false);
+  const [chats, setChats] = useState([]);
+  const router = useRouter();
+  const [user] = useAuthState(auth);
+
+  const q = query(
+    collection(db, "chats"),
+    where("users", "array-contains", user.email)
+  );
+  const [chatsSnapshot] = useCollection(q);
+
+  // console.log("chatsSnapshot", chatsSnapshot?.docs);
+  
+  useEffect(() => {
+    if (chatsSnapshot?.docs) {
+      setChats(chatsSnapshot.docs);
+    }
+  }, [chatsSnapshot]);
+    
+
 
   const openFrameContainer3 = useCallback(() => {
     setFrameContainer3Open(true);
@@ -61,7 +84,7 @@ const ListBar = () => {
             </div>
           </div>
         </div>
-        <FriendsList />
+        <FriendsList chats={chats} userLoggedIn={user} />
       </div>
       {isFrameContainer3Open && (
         <PortalPopup

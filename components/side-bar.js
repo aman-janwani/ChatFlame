@@ -1,6 +1,9 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
+import { auth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 
 const SideBar = ({
   frame24Height,
@@ -9,6 +12,7 @@ const SideBar = ({
   // onAmanJanwaniARelaxingPicturIconClick,
   amanJanwaniARelaxingPictuCursor,
 }) => {
+  const [user] = useAuthState(auth);
 
   const router = useRouter();
 
@@ -61,7 +65,7 @@ const SideBar = ({
         className="relative rounded-small w-[3.13rem] h-[3.13rem] shrink-0 object-cover cursor-pointer"
         alt=""
         loading="lazy"
-        src="/aman-janwani-a-relaxing-picture-15e86afb9ad44b3dbfba7636b019edf7-1@2x.png"
+        src={user?.photoURL}
         onClick={onProfileClick}
       />
     </div>

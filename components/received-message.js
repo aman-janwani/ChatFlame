@@ -1,6 +1,7 @@
 import Image from "next/image";
 
-const ReceivedMessage = () => {
+
+const ReceivedMessage = ({message}) => {
   return (
     <div className="self-stretch   flex flex-row py-[0.63rem] px-[0rem] items-start justify-start gap-[0.63rem] text-left text-[0.75rem] text-gray-100 font-rubik">
       <Image width={35} height={35}
@@ -10,10 +11,9 @@ const ReceivedMessage = () => {
       />
       <div className="  flex flex-col items-start justify-start">
         <div className="self-stretch   flex flex-row py-[0.63rem] px-[0.25rem] items-center justify-between">
-          <p className="m-0 relative font-medium">Aman Janwani</p>
           <p className="m-0 relative text-[0.63rem] text-gray-200">6:38PM</p>
         </div>
-        <div className="rounded-tl-none rounded-tr-lg rounded-b-lg bg-seagreen-200 flex flex-col p-[0.63rem] items-start justify-start text-[0.63rem] text-darkolivegreen">
+        <div className="rounded-tl-none rounded-tr-lg rounded-b-lg bg-seagreen-200 flex flex-col p-[0.63rem] items-start justify-start text-[12px] text-darkolivegreen">
           <p className="m-0 relative">
             Conquistador Paracord Watch Strap Tutorial | UNDONE Watches
           </p>

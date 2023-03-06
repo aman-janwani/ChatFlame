@@ -6,37 +6,19 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import Login from "../components/Login";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { signOut } from "firebase/auth";
 
 const Profile = () => {
   const router = useRouter();
 
   const [user] = useAuthState(auth);
 
-  useEffect(() => {
-    if (user) {
-      setDoc(
-        doc(db, "users", user.uid),
-        {
-          email: user.email,
-          lastSeen: serverTimestamp(),
-          photoURL: user.photoURL,
-        },
-        { merge: true }
-      );
-    }
-  }, [user]);
+  // create a sign out function
+  const signOutUser = () => {
+    signOut(auth);
+  };
 
-  if (!user) {
-    return (
-      <div className="max-w-[110rem] mx-auto bg-white w-full max-h-screen   flex flex-row items-start justify-center">
-        <Login />
-      </div>
-    );
-  }
 
-  const onAmanJanwaniARelaxingPicturIconClick = useCallback(() => {
-    router.push("/desktop3");
-  }, [router]);
 
   const onFrameIcon1Click = useCallback(() => {
     router.push("/");
@@ -108,7 +90,10 @@ const Profile = () => {
             </div>
           </div>
           <div className="  flex flex-col py-[0.63rem] px-[0rem] items-center justify-center gap-[0.63rem]">
-            <button className="cursor-pointer [border:none] p-0 bg-red-500 rounded-xxs w-[20rem] h-[3.4rem] shrink-0   flex flex-row items-center justify-center">
+            <button
+              onClick={signOutUser}
+              className="cursor-pointer [border:none] p-0 bg-red-500 rounded-xxs w-[20rem] h-[3.4rem] shrink-0   flex flex-row items-center justify-center"
+            >
               <div className="relative text-[1.1rem] font-medium font-rubik text-white text-left">
                 Logout
               </div>

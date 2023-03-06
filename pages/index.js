@@ -12,25 +12,6 @@ import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 const Desktop2 = () => {
   const router = useRouter();
 
-  const [user] = useAuthState(auth);
-
-  useEffect(() => {
-    if (user) {
-      setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        lastSeen: serverTimestamp(),
-        photoURL: user.photoURL,
-      }, { merge: true });
-    }
-  }, [user]);
-
-  if (!user) {
-    return (
-      <div className="max-w-[110rem] mx-auto bg-white w-full max-h-screen   flex flex-row items-start justify-center">
-        <Login />
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-[110rem] mx-auto bg-white w-full max-h-screen   flex flex-row items-start justify-center">
