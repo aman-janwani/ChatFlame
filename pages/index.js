@@ -16,7 +16,7 @@ const Desktop2 = () => {
   return (
     <div className="max-w-[110rem] mx-auto bg-white w-full max-h-screen   flex flex-row items-start justify-center">
       <SideBar  />
-      <ListBar />
+      <ListBar w="full" />
       <MainInit />
     </div>
   );

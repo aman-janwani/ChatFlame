@@ -10,7 +10,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 
 
-const ListBar = () => {
+const ListBar = ({w}) => {
   const [isFrameContainer3Open, setFrameContainer3Open] = useState(false);
   const [chats, setChats] = useState([]);
   const router = useRouter();
@@ -31,6 +31,9 @@ const ListBar = () => {
   }, [chatsSnapshot]);
     
 
+  const onCLick = useCallback(() => {
+    router.push("/profile");
+  }, [router]);
 
   const openFrameContainer3 = useCallback(() => {
     setFrameContainer3Open(true);
@@ -42,14 +45,15 @@ const ListBar = () => {
 
   return (
     <>
-      <div className="self-stretch max-h-screen bg-white flex flex-col py-[0.63rem] px-[0rem] items-center justify-start gap-[0.63rem] text-left text-[2rem] text-gray-100 font-rubik  border-r-[1px] border-0 border-solid border-seagreen-200">
-        <div className="flex flex-col items-center justify-center gap-[0.13rem]">
+      <div className={`${w==="full" ? ("w-full lg:w-fit"):("")} ${w==="hid" ? ("w-0 hidden lg:flex lg:w-fit"):("")} self-stretch max-h-screen bg-white flex flex-col py-[0.63rem] px-[0rem] items-center justify-start gap-[0.63rem] text-left text-[2rem] text-gray-100 font-rubik  border-r-[1px] border-0 border-solid border-seagreen-200`}>
+        <div className="flex flex-col w-full items-center justify-center gap-[0.13rem]">
           <div className="self-stretch   flex flex-row p-[0.94rem] items-center justify-between">
-            <div className="hidden">
+            <div className="block md:hidden">
               <Image
                 width={50}
                 height={50}
-                className="relative w-[3.13rem] h-[3.31rem] shrink-0   hidden"
+                onClick={onCLick}
+                className="relative w-[3.13rem] h-[3.31rem] shrink-0 "
                 alt=""
                 loading="lazy"
                 src="/untitled-design-65-adobe-express-14.svg"
@@ -67,7 +71,7 @@ const ListBar = () => {
             />
           </div>
           <div className="self-stretch   flex flex-row py-[0rem] px-[0.94rem] items-start justify-start">
-            <div className="rounded-xxs bg-seagreen-100 w-[23.13rem] shrink-0   flex flex-row py-[1.25rem] px-[0.63rem] box-border items-center justify-start gap-[0.63rem]">
+            <div className="rounded-xxs bg-seagreen-100 min-w-[23.13rem] shrink-0   flex flex-row py-[1.25rem] px-[0.63rem] box-border items-center justify-start gap-[0.63rem]">
               <Image
                 width={20}
                 height={20}
@@ -79,7 +83,8 @@ const ListBar = () => {
               <input
                 className="[border:none] outline-none font-rubik text-[0.88rem] bg-[transparent] self-stretch flex-1 flex flex-row items-center justify-start"
                 type="text"
-                placeholder="Search..."
+                disabled
+                placeholder="Coming Soon"
               />
             </div>
           </div>

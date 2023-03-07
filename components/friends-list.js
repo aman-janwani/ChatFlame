@@ -6,6 +6,7 @@ const FriendsList = ({
   propBackgroundColor,
   onFrameContainer11Click,
   chats,
+  messages
 }) => {
   const frameDiv1Style = useMemo(() => {
     return {

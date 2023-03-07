@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps }) {
           lastSeen: serverTimestamp(),
           photoURL: user.photoURL,
           name: user.displayName,
-          about: "",
         },
         { merge: true }
       );
@@ -42,6 +41,8 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        {/* Favicon */}
+        <link rel="icon" href="https://res.cloudinary.com/dfk5jbk5r/image/upload/v1678018561/ChatFlame/Untitled_design_65__adobe_express_2_w62o2i.svg" />
       </Head>
 
       <Component {...pageProps} />

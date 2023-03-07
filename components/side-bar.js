@@ -43,7 +43,7 @@ const SideBar = ({
 
   return (
     <div
-      className="bg-darkolivegreen w-[6.25rem] max-h-min min-h-screen shrink-0   flex flex-col p-[0.63rem] box-border items-center justify-between"
+      className="hidden md:flex bg-darkolivegreen w-[6.25rem] max-h-min min-h-screen shrink-0   flex-col p-[0.63rem] box-border items-center justify-between"
       style={frameDivStyle}
     >
       <Image width={50} height={50}

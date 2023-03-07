@@ -29,7 +29,7 @@ const Desktop1 = ({ messages, chat }) => {
         <title>ChatFlame</title>
       </Head>
       <SideBar />
-      <ListBar />
+      <ListBar w="hid" />
       <Messages chat={chat} messages={messages} />
     </div>
   );
@@ -57,8 +57,8 @@ export async function getServerSideProps(context) {
     ...chatRes.data(),
   };
 
-  console.log("messages", messages);
-  console.log("chat", chat);
+  // console.log("messages", messages);
+  // console.log("chat", chat);
 
   return {
     props: {

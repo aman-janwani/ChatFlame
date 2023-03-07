@@ -8,9 +8,11 @@ import { db, auth } from "../firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, query, where } from "firebase/firestore";
 import Moment from "react-moment";
+import { useRouter } from "next/router";
 
 const Header = ({ chatUsers }) => {
   const [user] = useAuthState(auth);
+  const router = useRouter();
 
   const q = query(
     collection(db, "users"),
@@ -33,9 +35,24 @@ const Header = ({ chatUsers }) => {
     setFrameContainer18Open(false);
   }, []);
 
+  const onFrameIcon1Click = useCallback(() => {
+    router.push("/");
+  }, [router]);
+
   return (
     <>
       <div className="self-stretch bg-white  flex flex-row p-[0.94rem] items-center justify-center gap-[0.63rem] text-left text-[1rem] text-black font-rubik">
+        <div className="block lg:hidden">
+          <Image
+            width={25}
+            height={25}
+            className="relative w-[2.31rem] h-[2.31rem] shrink-0   cursor-pointer"
+            alt=""
+            loading="lazy"
+            src="/frame1.svg"
+            onClick={onFrameIcon1Click}
+          />
+        </div>
         {recipient ? (
           <Image
             width={55}
@@ -92,7 +109,11 @@ const Header = ({ chatUsers }) => {
           placement="Top right"
           onOutsideClick={closeFrameContainer18}
         >
-          <RecipientContact onClose={closeFrameContainer18} recipient={recipient} recipientEmail={recipientEmail} />
+          <RecipientContact
+            onClose={closeFrameContainer18}
+            recipient={recipient}
+            recipientEmail={recipientEmail}
+          />
         </PortalPopup>
       )}
     </>

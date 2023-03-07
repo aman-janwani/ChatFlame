@@ -1,10 +1,10 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { db, auth } from "../firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { collection,doc, query, orderBy , addDoc,  where, getDocs } from "firebase/firestore";
 import Moment from "react-moment";
 import { useRouter } from "next/router";
 
@@ -32,10 +32,11 @@ const Chat = ({ users, id }) => {
     router.push(`/chat/${id}`);
   };
 
+
   
 
   return (
-    <div onClick={enterChat} className="self-stretch   flex flex-row p-[0.94rem] items-center justify-start gap-[0.63rem] border-b-[1px] border-0 border-solid border-seagreen-200  hover:bg-beige cursor-pointer">
+    <div onClick={enterChat} className={`self-stretch   flex flex-row p-[0.94rem] items-center justify-start gap-[0.63rem] border-b-[1px] border-0 border-solid border-seagreen-200 ${router.query.id === id ? ("bg-beige") : ("")}  hover:bg-beige cursor-pointer`}>
       {recipient ? (
         <Image
           width={55}
@@ -61,9 +62,7 @@ const Chat = ({ users, id }) => {
         ) : (
           <p className="m-0 relative font-medium">{recipientEmail}</p>
         )}
-        <p className="m-0 relative text-[0.88rem] text-gray-200">
-          Hello How are you?
-        </p>
+        <p className="m-0 relative text-[0.75rem] text-gray-200">{recipient?.about}</p>
       </div>
       {recipient ? (
         <div className="self-stretch   flex flex-row items-start justify-end text-[0.75rem] text-gray-200">

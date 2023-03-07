@@ -18,7 +18,7 @@ const AddFriend = ({ onClose }) => {
   const [error , setError] = useState(false);
 
   const createChat = async () => {
-    console.log("Creating a chat with ", input);
+    // console.log("Creating a chat with ", input);
 
     if (!input) return;
 
@@ -34,9 +34,9 @@ const AddFriend = ({ onClose }) => {
         setInput("");
         onClose();
       });
-      console.log("chat should be created");
+      // console.log("chat should be created");
     }  else {
-      console.log("chat no need to be created");
+      // console.log("chat no need to be created");
       setError(true);
     }
   };
