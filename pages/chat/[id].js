@@ -37,9 +37,21 @@ const Desktop1 = ({ messages, chat }) => {
 
 export default Desktop1;
 
-export async function getServerSideProps(context) {
+export async function getStaticPaths() {
+  // get all chat IDs from your database
+  const chatsRef = collection(db, "chats");
+  const chatsRes = await getDocs(chatsRef);
+  const chats = chatsRes.docs.map((doc) => doc.id);
+
+  // generate the paths for all chats
+  const paths = chats.map((chat) => ({ params: { id: chat } }));
+
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
   // fetch the messages on the server with the id
-  const ref = doc(db, "chats", context.query.id);
+  const ref = doc(db, "chats", params.id);
   const messagesRes = await getDocs(collection(ref, "messages"));
   const messages = messagesRes.docs
     .map((doc) => ({
@@ -56,9 +68,6 @@ export async function getServerSideProps(context) {
     id: chatRes.id,
     ...chatRes.data(),
   };
-
-  // console.log("messages", messages);
-  // console.log("chat", chat);
 
   return {
     props: {

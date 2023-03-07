@@ -692,7 +692,8 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "getServerSideProps": () => (/* binding */ getServerSideProps)
+/* harmony export */   "getStaticPaths": () => (/* binding */ getStaticPaths),
+/* harmony export */   "getStaticProps": () => (/* binding */ getStaticProps)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
@@ -749,9 +750,25 @@ const Desktop1 = ({ messages , chat  })=>{
     });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Desktop1);
-async function getServerSideProps(context) {
+async function getStaticPaths() {
+    // get all chat IDs from your database
+    const chatsRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_8__.collection)(_firebase__WEBPACK_IMPORTED_MODULE_7__.db, "chats");
+    const chatsRes = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_8__.getDocs)(chatsRef);
+    const chats = chatsRes.docs.map((doc)=>doc.id);
+    // generate the paths for all chats
+    const paths = chats.map((chat)=>({
+            params: {
+                id: chat
+            }
+        }));
+    return {
+        paths,
+        fallback: false
+    };
+}
+async function getStaticProps({ params  }) {
     // fetch the messages on the server with the id
-    const ref = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_8__.doc)(_firebase__WEBPACK_IMPORTED_MODULE_7__.db, "chats", context.query.id);
+    const ref = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_8__.doc)(_firebase__WEBPACK_IMPORTED_MODULE_7__.db, "chats", params.id);
     const messagesRes = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_8__.getDocs)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_8__.collection)(ref, "messages"));
     const messages = messagesRes.docs.map((doc)=>({
             id: doc.id,
@@ -765,8 +782,6 @@ async function getServerSideProps(context) {
         id: chatRes.id,
         ...chatRes.data()
     };
-    // console.log("messages", messages);
-    // console.log("chat", chat);
     return {
         props: {
             messages: JSON.stringify(messages),
